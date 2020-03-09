@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvcStudy.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,9 +17,16 @@ namespace MvcStudy.Controllers
             return View();
         }
 
+        [HttpGet]
         public ViewResult RvspForm()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ViewResult RvspForm(GuestResponse guestResponse)
+        {
+            return View("Thanks", guestResponse);
         }
     }
 }
