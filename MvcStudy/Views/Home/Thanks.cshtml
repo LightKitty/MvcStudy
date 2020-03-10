@@ -1,0 +1,53 @@
+﻿@model MvcStudy.Models.GuestResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Thanks</title>
+    <style>
+        body {
+            background-color: #F1F1F1;
+        }
+    </style>
+</head>
+<body>
+    @try
+    {
+        WebMail.SmtpServer = "smtp.example.com";
+        WebMail.SmtpPort = 587;
+        WebMail.EnableSsl = true;
+        WebMail.UserName = "mySmtpUsername";
+        WebMail.Password = "mySmtpPassword";
+        WebMail.From = "rsvps@example.com";
+        WebMail.Send("yangguanghui@beisen.com", "RSVP Notifiaction", Model.Name + "is" + ((Model.WillAttend ?? false) ? "" : "not") + "attending");
+    }
+    catch (Exception ex)
+    {
+        @:<b>对不起，未能给您发送回复邮件</b>
+    }
+
+
+    <div class="text-center">
+        <h1>
+            Thank you.@Model.Name
+        </h1>
+        <div class="lead">
+            @if (Model.WillAttend == true)
+            {
+                @:感谢您的到来
+            }
+            else
+            {
+                @:您未能参加我们的Party,我们深感遗憾,感谢您的回复。
+            }
+        </div>
+    </div>
+</body>
+</html>
